@@ -1,17 +1,19 @@
 name: Swift
-true:
+
+on:
   push:
     branches:
     - master
   pull_request:
     branches:
     - master
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v6
     - name: Build
-      run: swift build -v
+      run: xcodebuild build -project RandomPhoto.xcodeproj -scheme RandomPhoto -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO
     - name: Run tests
-      run: swift test -v
+      run: xcodebuild test -project RandomPhoto.xcodeproj -scheme RandomPhoto -destination 'platform=iOS Simulator,name=iPhone 16' CODE_SIGNING_ALLOWED=NO
